@@ -1,0 +1,182 @@
+% !TEX root = MTH4329HW1.tex
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,scrextend}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\newcommand{\cont}{\subseteq}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage[mathscr]{euscript}
+\let\euscr\mathscr \let\mathscr\relax% just so we can load this and rsfs
+\usepackage[scr]{rsfso}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{mdframed}
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
+citecolor=blue, urlcolor=blue]{hyperref}
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\newcommand{\ddx}{\frac{d}{dx}}
+\newcommand{\dfdx}{\frac{df}{dx}}
+\newcommand{\ddxp}[1]{\frac{d}{dx}\left( #1 \right)}
+\newcommand{\dydx}{\frac{dy}{dx}}
+\let\ds\displaystyle
+\newcommand{\intx}[1]{\int #1 \, dx}
+\newcommand{\intt}[1]{\int #1 \, dt}
+\newcommand{\defint}[3]{\int_{#1}^{#2} #3 \, dx}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\un}{\cup}
+\newcommand{\inter}{\cap}
+\newcommand{\ps}{\mathscr{P}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newtheorem*{sol}{Solution}
+\newtheorem*{claim}{Claim}
+\newtheorem{problem}{Problem}
+\theoremstyle{remark}  % Style for remarks
+\newtheorem*{remark}{Remark}
+
+
+\begin{document}
+ 
+% EVERYTHING ABOVE THIS LINE IS JUST PREABLE, NO NEED TO MESS WITH IT.__________________________________________________________________________________________
+%
+
+\lhead{Rawson Duplantis}
+\chead{MTH 4329: Complex Variables}
+\rhead{\today}
+%\begin{problemgroup}
+    \begin{problem}
+        Prove that if $z_1$, $z_2\in\mathbb{C}$ and $z_1z_2=0$ then either $z_1=0$ or $z_2=0$.
+    \end{problem}
+    \begin{proof}
+        Suppose that $\exists\ z_1$, $z_2\in\mathbb{C} \land z_1z_2=0$. We can express their product as
+        $$(x_1, y_1)(x_2, y_2) = (x_1x_2 - y_1y_2, x_2y_1 + y_2x_1)= (0,0)$$ which implies $x_1x_2 - y_1y_2 = x_2y_1+y_2x_1$. From this, rearranging yields
+        \begin{align*}
+            x_1x_2 - y_1y_2 &= x_2y_1 + y_2x_1 \\
+            x_1x_2 - y_2x_1 &= x_2y_1 + y_1y_2 \\
+            x_1(x_2 - y_2) &= y_1(x_2 + y_2).
+        \end{align*}
+        Since there is no choice of $x_2,y_2\in\mathbb{Z}\backslash\{0\}$ that makes $x_2 - y_2=x_2 + y_2$ true, $(x_1, y_1)=0 \lor (x_2, y_2)=0$. Thus there are no proper zero divisors in $\mathbb{C}$.
+    \end{proof}
+%\end{problemgroup}
+\begin{remark}
+    Is it sufficient to say that $\mathbb{C}$ is a field, all fields do not have proper zero divisors, thus $\mathbb{C}$ has no proper zero divisors?
+\end{remark}
+\vspace{.5em}
+%\begin{problemgroup}
+    \begin{problem}
+        Do each of the following:
+        \begin{enumerate}[label=(\alph*)]
+            \item Write the complex number $\frac{1+2i}{3+4i}$ in the form $a+bi$.
+            \item Find $\operatorname{Re}\left(\frac{2-i}{2+i}\right)$ and $\operatorname{Im}\left(\frac{2-i}{2+i}\right)$.
+        \end{enumerate}
+    \end{problem}
+    For the first subproblem, we will re-express the fraction using the denominators conjugate, $3-4i$:
+    \begin{align*}
+        \left(\frac{1+2i}{3+4i}\right)\left(\frac{3-4i}{3-4i}\right) &= \frac{(1+2i)(3-4i)}{9-16i^2} \\
+        &= \frac{3+2i-8i^2}{25} \\
+        &= \frac{11}{25}+\frac{2}{25}i.
+    \end{align*}
+    \framebox[1.1\width]{Therefore $a=\frac{11}{25}$ and $b=\frac{2}{25}$.} For the second subproblem, we will complete the same computation but will present the real and imaginary components separately. Using the denominator's conjugate of $2-i$: $$ \left(\frac{2-i}{2+i}\right)\left(\frac{2-i}{2-i}\right) = \frac{4-4i+i^2}{4 - i^2} = \frac{3-4i}{5}. $$ \framebox[1.1\width]{Therefore $\operatorname{Re}\left(\frac{2-i}{2+i}\right)=\frac{3}{5}$ and $\operatorname{Im}\left(\frac{2-i}{2+i}\right)=\frac{-4}{5}$.}
+%\end{problemgroup}
+\vspace{.5em}
+%\begin{problemgroup}
+    \begin{problem}
+        Prove that if $|z|=2$, then $$\frac{1}{|z^4-4z^2+3|}\leq\frac{1}{3}.$$ (Hint: factor $z^4-4z^2+3$ and then use the reverse triangle inequality.)
+    \end{problem}
+    \begin{proof}
+        Suppose $\exists z\in\mathbb{C}$ where $|z|=2$. Given a polynomial $z^4-4z^2+3$, we can determine using the reverse triangle inequality that
+        \begin{align*}
+            |z^4-4z^2+3| &\geq |z^4|-|-4z^2|-|3| \\
+                         &\geq |2^4-4(2)^2-3| \\
+                         &\geq 3
+        \end{align*}
+        Therefore $|z^4-4z^2+3|^{-1}\leq\frac{1}{3}$.
+    \end{proof}
+    This result can be confirmed using the modulus-polynomial method---if that accurately refers to the procedure---used in the textbook by finding the moduli of the factors of $|z^4-4x^2+3|$, $|z^2-3|$ and $|z^2-1|$, as 1 and 3 respectively. We then take the greatest number of the two as our reciprocal polynomial's upper bound, in this case $\frac{1}{3}$.
+%\end{problemgroup}
+
+\vspace{1em}
+\begin{problem}
+    Prove the following:
+    \begin{enumerate}[label=(\alph*)]
+        \item $z$ is real if and only if z=$\bar{z}$.
+        \item $z$ is either real or purely imaginary if and only if $(\bar{z})^2=z^2$.
+    \end{enumerate}
+\end{problem}
+\begin{proof}
+    Suppose $\exists z$ such that $z \in \mathbb{R}$. Such a real number in the complex plane doesn't have an imaginary component and is represented simply as $(x,0)$; because $\operatorname{Im}(z)$ is the opposite of its conjugate, a real number remains a real number as 0 is neutral. If we are to suppose that $z=\bar{z}$, $\operatorname{Im}(z)$ and $\operatorname{Im}(\bar{z})$ are implied to be the same, which is only true for the neutral zero as $\operatorname{Im}(z)=-\operatorname{Im}(\bar{z})$. Therefore $z\in\mathbb{R}\iff z=\bar{z}$.
+\end{proof}
+\begin{proof}
+    Suppose $\exists z \in \mathbb{C}$. If we also suppose that such a number represented in its component form $a+bi$ is either completely real or completely imaginary, either $z=a$ or $z=bi$ with corresponding $\bar{z}=a$ or $\bar{z}=-bi$. In the real case, $z^2=a^2=(\bar{z})^2$ while in the 'imaginary' case $z^2=(bi)^2=(-bi)^2=(\bar{z})^2$. As clearly demonstrated by the commutativity of the second expression, the reverse relationship is true and thus $z$ is either real or purely imaginary $\iff (\bar{z})^2=z^2$.
+\end{proof}
+
+\vspace{1em}
+\begin{problem}
+    With $z=x+yi$, write the equation $|2\bar{z}+i|=4$ in terms of $x$ and $y$. Sketch the graph of this equation and identify what kind of equation it is.
+\end{problem}
+If we are to substitute $z=x+yi$ into $|2\bar{z}+i|=4$, we can say $$|2(x-yi)+i|=4\implies |2x-2yi+i|=4.$$ We can calculate the modulus of this expression as the following: $$|2x + (1-2y)i|=4\implies \sqrt{4x^2 + 1 - 4y + 4y^2}=4\implies x^2+y^2-y-\frac{15}{4}=0.$$ Further simplification involves completing the square by separating $\frac{1}{4}$ out: $$x^2+(y^2-y+\frac{1}{4})-\frac{16}{4}=0\implies x^2+(y-\frac{1}{2})^2=4.$$ \framebox[1.1\width]{Therefore $|2\bar{z}+1|=4$ is a circle of radius 2 centered around $(0,\frac{1}{2})$.}
+
+\iffalse
+% \maketitle
+\section{Intro to LaTeX}
+Hi there! Here is a brief introduction to LaTeX. It's a great system for creating beautifully typeset scientific documents. The main difference between LaTeX and your standard word processing program, is that you write code that tells LaTeX what you want it to display and the program creates handles all the little things that make your math look great.
+
+Lets start with some basics. You can type text normally but when you want to type some math start and end your expression with a \$. For example if I type the Pythagorean Theorem, as long as I surround my equation with dollar signs I get $a^2 +b^2 = c^2$. If I want to emphasize an equation simply put TWO dollar signs around the mathematics. For example a similar expression with two dollar signs around it looks like so: $$x_1^n + x_2^n = x_3^n.$$ (check out the code to see how to generate subscripts!)
+
+In LaTeX we use the curly braces, \{ \}, to group things. If we want to raise $e$ to the $42$nd power and we just type it with no grouping we get $e^42$ which is not what we want. Surrounding the $42$ with curly braces gives $e^{42}$.
+
+The really really really great thing about latex is the HUGE library of mathematical symbols, every symbol starts with a $\backslash$, so if I want a nice pi, I just type $\backslash$pi in math mode like so: $\pi$. Want an integral? Try $\backslash$int, want a fraction? Try $\backslash$frac\{a\}\{b\} (this gives $\frac{a}{b}$) Here is a more complicated example:
+$$
+\int_a^b f \left(\frac{x}{2} \right) \ dx =2\left( F\left(\frac{b}{2} \right) - F\left(\frac{a}{2}\right) \right)
+$$
+(those nice sized parenthesis come from using the $\backslash$left( and $\backslash$right) commands). If you are wondering what the latex command for a symbol is, just try and guess it. If that doesn't work, google it!
+
+There are a few little tricks to making your math look nice, one is the align environment which lets you type multiple lines of aligned mathematical expressions. For instance:
+\begin{align*}
+(x^2+y^2)(z^2+w^2) & = (xz)^2 + (yz)^2 + (xw)^2 + (yw)^2 \\
+& =  (xz)^2 + 2wxyz + (yw)^2 + (yz)^2 - 2 wxyz + (xw)^2 \\
+&= (xz+yw)^2 + (yz-xw)^2
+\end{align*}
+here the $\backslash\backslash$ is a line break and the $\&$ is an alignment character. 
+\section{Sample Proofs}
+\begin{problem} $1^3+2^3+\ldots +n^3 = \left[ \frac{n(n+1)}{2}\right]^2$  for all natural numbers. 
+
+\end{problem}
+ 
+\begin{proof}
+We proceed by induction. When $n=1$ we have 
+$$
+1^3 + \ldots + n^3 = 1^3 =1
+$$
+and
+$$
+\left[ \frac{n(n+1)}{2}\right]^2=\left[ \frac{1(1+1)}{2}\right]^2 = 1^2 =1.
+$$
+Thus the equation holds when $n=1$.
+
+Now assume the equation holds for some $n \in \mathbb N$. Then by our assumption we have
+\begin{align*}
+1^3 + \ldots + n^3 + (n+1)^3& =   \left[ \frac{n(n+1)}{2}\right]^2 + (n+1)^3 = (n+1)^2\left( \frac{n^2}{4} + (n+1)\right) \\
+&=(n+1)^2\left( \frac{n^2+4n+4}{4} \right) = (n+1)^2\frac{(n+2)^2}{4}  \\ &=  \left[ \frac{(n+1)(n+2)}{2}\right]^2.
+\end{align*}
+Therefore, by induction, the equation holds for all $n\in \mathbb N$.
+\end{proof}
+
+\begin{problem} Prove $A \subseteq B \Rightarrow A \cap C \cont B \cap C$
+\end{problem}
+\begin{proof} Assume $A \cont B $ and let $x\in A \cap C$. If $x \in  A \cap C$, then $x\in A$ and $x \in C$. As $x\in A$, by assumption we have that $x \in B$. Thus $x \in B$ and $x \in C$, giving $x\in B \cap C$. Therefore if $A \subseteq B $, then $A \cap C \cont B \cap C$.
+\end{proof}
+
+% THE DOCUMENT IS ESSENTIALLY DONE AT THIS POINT, NO NEED TO EDIT ANYTHING BELOW THIS______________________________________________________________________________________________
+ 
+\fi
+\end{document}
